@@ -22,15 +22,16 @@ The frontend of the application is developed using Dash, a Python framework for 
 
 <img width="911" height="533" alt="image" src="https://github.com/user-attachments/assets/667d65fb-03b4-46ba-8e77-50a5606d3d59" />
 
-
+<img width="915" height="549" alt="image" src="https://github.com/user-attachments/assets/afa4b226-0fe9-4cd2-ae61-aff7e1f540d5" />
 
 
 - Climate Model Selection: A dropdown menu allows users to choose from multiple CMIP6 climate models available in the dataset.
-<img width="915" height="549" alt="image" src="https://github.com/user-attachments/assets/afa4b226-0fe9-4cd2-ae61-aff7e1f540d5" />
+
+
+<img width="827" height="500" alt="image" src="https://github.com/user-attachments/assets/758dd999-2d3f-4b70-a90f-94ceed3e3562" />
 
 - Data Download: Processed daily precipitation data can be downloaded in Excel-compatible formats (.xlsx or .csv).
 
-<img width="827" height="500" alt="image" src="https://github.com/user-attachments/assets/758dd999-2d3f-4b70-a90f-94ceed3e3562" />
 
 
 ## Backend Architecture
@@ -54,7 +55,7 @@ The processed precipitation data is organized into a chronological daily time se
 ### Step 4: Data Export
 The finalized dataset is exported in CSV format, compatible with Excel and other data analysis tools. Each output file is automatically named using the following convention:
 
-<Model>daily<StationName>_<StartYear-EndYear>.csv
+<<Model>daily<StationName>_<StartYear-EndYear>>.csv
 
 
 ## Automation and Usability
