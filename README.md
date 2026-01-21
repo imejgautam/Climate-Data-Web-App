@@ -1,95 +1,67 @@
-Climate Data Processing Tool
-Overview
+# Climate Data Processing Tool
 
-The Climate Data Processing Tool is a web-based application developed to facilitate efficient access, processing, and export of daily precipitation data derived from CMIP6 climate projections. The tool is designed to simplify the workflow of climate data extraction for researchers and practitioners by automating data retrieval, unit conversion, organization, and export into user-friendly formats.
+## Overview
+The Climate Data Processing Tool is a web-based application designed to simplify the retrieval, processing, and export of daily precipitation data from CMIP6 climate projections. The tool automates climate data extraction and converts raw datasets into user-friendly formats, enabling researchers and practitioners to focus on analysis rather than data handling. The application integrates a Dash-based frontend with a Python backend powered by the Google Earth Engine (GEE) API to provide seamless access to the NEX-GDDP-CMIP6 dataset.
 
-The application integrates a Dash-based frontend with a Python backend powered by the Google Earth Engine (GEE) API, enabling seamless interaction with the NEX-GDDP-CMIP6 climate dataset.
+## Frontend Architecture
+The frontend of the application is developed using Dash, a Python framework for building analytical web applications. Dash enables interactive user interfaces and integrates seamlessly with Plotly for interactive visualizations, while utilizing Flask for backend communication.
 
-Frontend Architecture
+<img width="867" height="569" alt="image" src="https://github.com/user-attachments/assets/1e8094d4-81d4-47e5-941b-770dd249234c" />
 
-The frontend of the application is built using Dash, a Python framework for creating analytical web applications. Dash enables interactive user interfaces and is tightly integrated with Plotly for dynamic visualization, while leveraging Flask for backend communication.
 
-Key Features
 
-Station Input
-Users can input station names along with their geographic coordinates (latitude and longitude), allowing precise extraction of climate data at point locations.
 
-Scenario and Date Range Selection
-The interface allows users to select available climate scenarios (e.g., Historical, SSP245, SSP585) and define custom date ranges for data extraction.
+### Key Features
+- Station Input: Users can input station names along with their corresponding latitude and longitude coordinates for precise point-based climate data extraction.
 
-Climate Model Selection
-A dropdown menu provides access to multiple CMIP6 climate models included in the dataset, enabling comparative analysis across models.
+<img width="916" height="558" alt="image" src="https://github.com/user-attachments/assets/c19516a5-7433-4e18-aca4-6b63a317c355" />
 
-Data Download
-After parameter selection, users can initiate data processing and download daily precipitation data in Excel-compatible format (.xlsx/.csv).
 
-The frontend is designed to be intuitive and user-friendly, minimizing technical complexity for end users.
 
-Backend Architecture
+- Scenario and Date Range Selection: Users can select available climate scenarios such as Historical, SSP245, and SSP585 and specify a custom date range.
 
-The backend of the Climate Data Processing Tool is implemented in Python, with direct integration of the Google Earth Engine (GEE) API. The system accesses the NEX-GDDP-CMIP6 dataset, which contains statistically downscaled CMIP6 climate projections at a spatial resolution of approximately 27–28 km, eliminating the need for additional downscaling.
+<img width="911" height="533" alt="image" src="https://github.com/user-attachments/assets/667d65fb-03b4-46ba-8e77-50a5606d3d59" />
 
-Backend Workflow
-Step 1: Data Retrieval
 
-Upon user input, the backend connects to the GEE cloud platform and filters the NEX-GDDP-CMIP6 dataset based on:
 
-Selected climate scenario
 
-Selected climate model
+- Climate Model Selection: A dropdown menu allows users to choose from multiple CMIP6 climate models available in the dataset.
+<img width="915" height="549" alt="image" src="https://github.com/user-attachments/assets/afa4b226-0fe9-4cd2-ae61-aff7e1f540d5" />
 
-Specified date range
+- Data Download: Processed daily precipitation data can be downloaded in Excel-compatible formats (.xlsx or .csv).
 
-Station coordinates
+<img width="827" height="500" alt="image" src="https://github.com/user-attachments/assets/758dd999-2d3f-4b70-a90f-94ceed3e3562" />
 
-The Earth Engine platform enables efficient handling of large-scale climate datasets without local computational overhead.
 
-Step 2: Data Processing
+## Backend Architecture
+The backend of the Climate Data Processing Tool is implemented in Python and integrated with the Google Earth Engine (GEE) API. The system accesses the NEX-GDDP-CMIP6 dataset, which contains statistically downscaled CMIP6 climate projections at a spatial resolution of approximately 27–28 km, eliminating the need for additional downscaling.
 
-Precipitation data retrieved from the dataset is originally provided in units of kg/m²/s. To ensure practical usability, the backend automatically converts these values into millimeters per day (mm/day) using the following conversion:
+## Backend Workflow
+Once the user selects the climate scenario, model, station location, and date range, the backend performs the following operations:
+
+### Step 1: Data Retrieval
+The backend connects to the Google Earth Engine cloud platform and filters the NEX-GDDP-CMIP6 dataset based on the selected scenario, climate model, date range, and station coordinates. Earth Engine efficiently handles large-scale climate data processing without local computational overhead.
+
+### Step 2: Data Processing
+Precipitation data retrieved from the dataset is originally provided in units of kg/m²/s. To ensure practical usability, the backend automatically converts the data into millimeters per day (mm/day) using the following conversion:
 
 mm/day = (kg/m²/s) × 86,400
 
 
-This conversion is applied consistently across the selected date range.
+### Step 3: Data Organization
+The processed precipitation data is organized into a chronological daily time series, ensuring that each precipitation value corresponds to its exact date within the selected time range. This structure allows users to directly analyze temporal precipitation trends without additional data manipulation.
 
-Step 3: Data Organization
+### Step 4: Data Export
+The finalized dataset is exported in CSV format, compatible with Excel and other data analysis tools. Each output file is automatically named using the following convention:
 
-The processed precipitation data is systematically organized by date, ensuring a chronological daily time series. This structured format allows users to directly analyze temporal trends without additional data manipulation.
-
-Step 4: Data Export
-
-The finalized dataset is exported in CSV format, compatible with Excel and other data analysis tools. Each file is automatically named using the following convention:
-
-<Model>_daily_<StationName>_<StartYear-EndYear>.csv
+<Model>daily<StationName>_<StartYear-EndYear>.csv
 
 
-This naming structure ensures clarity and traceability of downloaded datasets.
+## Automation and Usability
+The entire backend workflow is fully automated. Users are not required to manually download, process, or convert climate datasets. By simply providing input parameters through the frontend interface, the system retrieves, processes, organizes, and exports the data in a ready-to-use format. This automation reduces processing time, minimizes human error, and improves reproducibility while maintaining ease of use for non-technical users.
 
-Automation and Usability
+## Intended Applications
+The Climate Data Processing Tool is suitable for climate change impact studies, hydrological and flood modeling, water resources assessment, academic research, and climate scenario analysis.
 
-A key strength of the application lies in its fully automated backend workflow. Users are not required to manually download, process, or convert climate data. By simply providing input parameters through the frontend interface, the system performs all required operations and delivers ready-to-use datasets.
-
-This automation:
-
-Reduces processing time
-
-Minimizes user error
-
-Improves reproducibility
-
-Enhances accessibility for non-technical users
-
-Intended Applications
-
-The Climate Data Processing Tool is suitable for:
-
-Climate change impact studies
-
-Hydrological and flood modeling
-
-Water resources assessment
-
-Academic research and teaching
-
-Climate scenario analysis
+## Summary
+By combining an intuitive Dash-based frontend with a robust Google Earth Engine-powered backend, the Climate Data Processing Tool provides an efficient, reliable, and user-friendly solution for accessing and processing CMIP6 precipitation data. The application enables users to focus on scientific analysis and interpretation rather than technical data handling.
